@@ -1,0 +1,55 @@
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background-primary);
+  padding: 10px 25px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.Header > a {
+  background: none;
+  border: none;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.Header > a > img {
+  border-radius: 100%;
+  width: 60px;
+  margin-right: 20px;
+}
+.Header > a > h1 {
+  font-size: 25px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+.Header > nav {
+  display: flex;
+  align-items: center;
+
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.Header > nav > a {
+  text-decoration: none;
+  color: #1a2130;
+  font-size: 16px;
+  font-weight: 400;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+}
+.Header > nav > a > svg {
+  transition: 0.3s;
+}
+.Header > nav > a:hover {
+  color: var(--text-light);
+  transform: scale(1.05);
+}
+.Header > nav > a:hover svg {
+  color: var(--text-light);
+  transform: scale(1.1);
+}
