@@ -1,0 +1,10 @@
+.LogIn {
+  display: flex;
+  min-height: 100vh;
+}
+
+.LogInBackground {
+  width: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

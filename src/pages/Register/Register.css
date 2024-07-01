@@ -1,0 +1,10 @@
+.Register {
+  display: flex;
+  min-height: 100vh;
+}
+
+.RegisterBackground {
+  width: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

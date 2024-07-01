@@ -1,0 +1,77 @@
+.LogInForm {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.LogInForm > h3 {
+  font-size: 45px;
+  color: var(--text-dark-light);
+  font-weight: 500;
+}
+.LogInForm > p {
+  font-size: 20px;
+  color: var(--text-dark-light);
+  margin-bottom: 30px;
+}
+
+.LogInForm > form {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+.LogInInputGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+.LogInInputGroup {
+  color: var(--text-dark-extra-light);
+}
+.LogInInputGroup > input {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  border: 1px solid var(--text-dark-extra-light);
+  padding: 5px;
+  border-radius: 5px;
+  outline: 0;
+}
+.LogInForm > form > button {
+  width: 100%;
+  border-radius: 20px;
+  border: 0;
+  padding: 5px;
+  background-color: rgb(94, 94, 247);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.LogInIcons1,
+.LogInIcons2,
+.LogInIcons3 {
+  position: absolute;
+}
+.LogInIcons1 {
+  top: 40%;
+  right: 0;
+  width: 70px;
+}
+.LogInIcons2 {
+  width: 100px;
+  top: 10%;
+  left: 10%;
+}
+.LogInIcons3 {
+  width: 90px;
+  bottom: 0;
+  left: 20%;
+}
+.registerLink {
+  margin-top: 10px;
+  text-decoration: none;
+  align-self: flex-end;
+}

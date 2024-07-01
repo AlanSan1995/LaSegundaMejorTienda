@@ -1,0 +1,56 @@
+.RegisterForm {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.RegisterForm > h3 {
+  font-size: 45px;
+  color: var(--text-dark-light);
+  font-weight: 500;
+}
+.RegisterForm > p {
+  font-size: 20px;
+  color: var(--text-dark-light);
+  margin-bottom: 30px;
+}
+
+.RegisterForm > form {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+.RegisterInputGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+.RegisterInputGroup {
+  color: var(--text-dark-extra-light);
+}
+.RegisterInputGroup > input {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  border: 1px solid var(--text-dark-extra-light);
+  padding: 5px;
+  border-radius: 5px;
+  outline: 0;
+}
+.RegisterForm > form > button {
+  width: 100%;
+  border-radius: 20px;
+  border: 0;
+  padding: 5px;
+  background-color: rgb(94, 94, 247);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+.LogInLink {
+  margin-top: 10px;
+  text-decoration: none;
+  align-self: flex-end;
+}
