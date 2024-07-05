@@ -28,7 +28,6 @@
 .Header > nav {
   display: flex;
   align-items: center;
-
   justify-content: space-between;
   gap: 30px;
 }
@@ -52,4 +51,23 @@
 .Header > nav > a:hover svg {
   color: var(--text-light);
   transform: scale(1.1);
+}
+
+.HeaderAuthButtons {
+  display: flex;
+  gap: 15px;
+}
+.HeaderAuthButtons > a {
+  background-color: #5252fd;
+
+  padding: 10px 15px;
+  border-radius: 10px;
+  color: #ffffff !important;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.HeaderAuthButtons > a:hover {
+  /* color: var(--text-dark-extra-light) !important; */
+  transform: scale(1.05);
+  background-color: #7373ff;
 }

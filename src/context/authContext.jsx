@@ -1,9 +1,10 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from "firebase/auth";
 import { createContext, useContext, useState } from "react";
-import { auth } from "../firebase/firebase";
+import { auth, githubProvider, googleProvider } from "../firebase/firebase";
 
 const AuthContext = createContext();
 
@@ -21,8 +22,7 @@ function AuthProvider({ children }) {
       );
       setUser(userCredential.user);
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+      return error;
     }
   };
 
@@ -33,20 +33,45 @@ function AuthProvider({ children }) {
         email,
         password
       );
+      console.log(userCredential.user);
       setUser(userCredential.user);
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      return { errorCode, errorMessage };
+      return error;
+    }
+  };
+  const googleAuth = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      console.log(result.user);
+      setUser(result.user);
+    } catch (error) {
+      return error;
     }
   };
 
+  const githubAuth = async () => {
+    try {
+      const result = await signInWithPopup(auth, githubProvider);
+      console.log(result.user);
+      setUser(result.user);
+    } catch (error) {
+      return error;
+    }
+  };
   const logOutUser = async () => {
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, registerUser, loginUser, logOutUser }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        registerUser,
+        loginUser,
+        logOutUser,
+        googleAuth,
+        githubAuth,
+      }}>
       {children}
     </AuthContext.Provider>
   );

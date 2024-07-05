@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header/Header";
 import { useAuthContext } from "./context/authContext";
@@ -19,21 +19,19 @@ function App() {
 
   return (
     <>
-      {!user ? (
-        <Routes>
-          <Route path='/' element={<Navigate to='/login' replace />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-        </Routes>
-      ) : (
-        <>
-          <Header />
-          <Routes>
-            <Route path='/' element={<Home />}></Route>
-            <Route path='/products' element={<Products />}></Route>
-          </Routes>
-        </>
-      )}
+      <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/products' element={<Products />} />
+        {!user ? (
+          <>
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+          </>
+        ) : (
+          <></>
+        )}
+      </Routes>
     </>
   );
 }
