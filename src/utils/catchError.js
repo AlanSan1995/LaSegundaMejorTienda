@@ -6,6 +6,9 @@ export function catchError(error) {
     case "auth/invalid-email":
       return "Mail invalido";
 
+    case "auth/account-exists-with-different-credential":
+      return "erro de validacion";
+
     default:
       return "Ocurrio un error";
   }

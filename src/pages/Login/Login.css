@@ -8,3 +8,51 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.LogInBackground {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.LoginButtonGoogle {
+  padding: 10px;
+  border-radius: 20px;
+  border: 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.LoginButtonGoogle > img {
+  width: 30px;
+  margin-right: 14px;
+}
+.LoginButtonGoogle:hover {
+  scale: 1.05;
+}
+
+.LoginButtonGitHub {
+  padding: 10px;
+  border-radius: 20px;
+  border: 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  background-color: #2b3137;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.LoginButtonGitHub > svg {
+  margin-right: 14px;
+  font-size: 30px;
+  color: #fff;
+}
+.LoginButtonGitHub:hover {
+  scale: 1.05;
+}

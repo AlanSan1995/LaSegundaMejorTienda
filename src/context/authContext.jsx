@@ -52,9 +52,10 @@ function AuthProvider({ children }) {
   const githubAuth = async () => {
     try {
       const result = await signInWithPopup(auth, githubProvider);
-      console.log(result.user);
+      console.log("Hola");
       setUser(result.user);
     } catch (error) {
+      console.log(error);
       return error;
     }
   };
