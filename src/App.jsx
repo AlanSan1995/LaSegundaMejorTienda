@@ -9,10 +9,12 @@ import { useEffect } from "react";
 import Register from "./pages/Register/Register";
 
 function App() {
-  const { user } = useAuthContext();
+  const { user, getLoggedInUser } = useAuthContext();
   const navigate = useNavigate();
   useEffect(() => {
-    if (user) {
+    if (!user) {
+      getLoggedInUser();
+    } else {
       navigate("/");
     }
   }, [user]);

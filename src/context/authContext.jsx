@@ -20,6 +20,7 @@ function AuthProvider({ children }) {
         email,
         password
       );
+      localStorage.setItem("userLoggedIn", JSON.stringify(userCredential.user));
       setUser(userCredential.user);
     } catch (error) {
       return error;
@@ -33,7 +34,7 @@ function AuthProvider({ children }) {
         email,
         password
       );
-      console.log(userCredential.user);
+      localStorage.setItem("userLoggedIn", JSON.stringify(userCredential.user));
       setUser(userCredential.user);
     } catch (error) {
       return error;
@@ -42,7 +43,7 @@ function AuthProvider({ children }) {
   const googleAuth = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      console.log(result.user);
+      localStorage.setItem("userLoggedIn", JSON.stringify(result.user));
       setUser(result.user);
     } catch (error) {
       return error;
@@ -52,15 +53,28 @@ function AuthProvider({ children }) {
   const githubAuth = async () => {
     try {
       const result = await signInWithPopup(auth, githubProvider);
-      console.log("Hola");
+      localStorage.setItem("userLoggedIn", JSON.stringify(result.user));
+
       setUser(result.user);
     } catch (error) {
       console.log(error);
       return error;
     }
   };
-  const logOutUser = async () => {
+  const logOutUser = () => {
+    localStorage.removeItem("userLoggedIn");
     setUser(null);
+  };
+
+  const getLoggedInUser = () => {
+    const userJson = localStorage.getItem("userLoggedIn");
+    if (!userJson) {
+      return null;
+    }
+    const user = JSON.parse(userJson);
+
+    setUser(user);
+    return user;
   };
 
   return (
@@ -72,6 +86,7 @@ function AuthProvider({ children }) {
         logOutUser,
         googleAuth,
         githubAuth,
+        getLoggedInUser,
       }}>
       {children}
     </AuthContext.Provider>
