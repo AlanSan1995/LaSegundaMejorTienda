@@ -17,28 +17,22 @@ function ProductsProvider({ children }) {
   const [products, setProducts] = useState([]);
 
   const getProducts = async (category = null) => {
-    const reference = collection(db, "products");
+    const reference = collection(db, " products");
+
     const q = category
       ? query(reference, where("category", "==", category))
       : reference;
+
     const querySnapshot = await getDocs(q);
-
-    let productList = [];
-
+    const productsArray = [];
     querySnapshot.forEach((doc) => {
-      console.log(doc.id);
-      productList.push({ id: doc.id, ...doc.data() });
+      productsArray.push({ id: doc.id, ...doc.data() });
     });
-
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-    });
-
-    setProducts(productList);
+    setProducts(productsArray);
   };
 
   const getProductById = async (id) => {
-    const docRef = doc(db, "products", id);
+    const docRef = doc(db, " products", id);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
