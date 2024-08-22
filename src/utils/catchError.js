@@ -7,7 +7,7 @@ export function catchError(error) {
       return "Mail invalido";
 
     case "auth/account-exists-with-different-credential":
-      return "erro de validacion";
+      return "tu cuenta pertence a google";
 
     default:
       return "Ocurrio un error";

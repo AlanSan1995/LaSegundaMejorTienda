@@ -1,13 +1,14 @@
 .ProductDetailPopUp {
   top: 0;
   left: 0;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #4b4b4ba1;
+  z-index: 10;
 }
 
 .ProductDetailPopUpContent {
@@ -71,7 +72,10 @@
 .ProductDetailPopUpDescriptionparagraf {
   font-size: 15px;
 }
-.ProductDetailPopUpDescription > button {
+.ProductDetailPopUpDescription > button,
+.ProductDetailPopUpDescription > a {
+  display: flex;
+  width: fit-content;
   background-color: #4271f1;
   border: 0;
   color: #fff;
@@ -79,16 +83,17 @@
   font-size: 16px;
   padding: 10px 15px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 10px !important;
   transition: 0.3s;
+  text-decoration: none;
 }
 
-.ProductDetailPopUpDescription > button:hover {
+.ProductDetailPopUpDescription > button:hover,
+.ProductDetailPopUpDescription > a:hover {
   background-color: #6b93ff;
 }
 /*------------------------------*/
 
-/* From Uiverse.io by Yaya12085 */
 .radio-inputs {
   position: relative;
   display: flex;

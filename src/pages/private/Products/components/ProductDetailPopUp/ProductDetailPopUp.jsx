@@ -1,11 +1,13 @@
 import { useState } from "react";
 import "./ProductDetailPopUp.css";
 import CloseIcon from "@mui/icons-material/Close";
+import { useAuthContext } from "../../../../../context/authContext";
+import { Link } from "react-router-dom";
 
 function ProductDetailPopUp({ product, close }) {
   const [selectedColor, setSelectedColor] = useState(product.color[0].value);
   const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
-
+  const { user } = useAuthContext();
   const handleColorChange = (event) => {
     setSelectedColor(event.target.value);
   };
@@ -75,7 +77,13 @@ function ProductDetailPopUp({ product, close }) {
                 </label>
               ))}
             </div>
-            <button>Add to Cart</button>
+            {!user ? (
+              <Link to='/login' className='aaa'>
+                Add to Cart
+              </Link>
+            ) : (
+              <button>Add to Cart</button>
+            )}
           </div>
         </div>
       </div>

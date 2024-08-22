@@ -1,5 +1,4 @@
 import "./ProductCard.css";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import { wordToUpercase } from "../../../../../utils/wordToUpercase";
 

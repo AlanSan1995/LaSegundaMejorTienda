@@ -7,6 +7,7 @@ import Products from "./pages/private/Products/Products";
 import Login from "./pages/Login/Login";
 import { useEffect } from "react";
 import Register from "./pages/Register/Register";
+import Cart from "./pages/private/Cart/Cart";
 
 function App() {
   const { user, getLoggedInUser } = useAuthContext();
@@ -31,7 +32,9 @@ function App() {
             <Route path='/register' element={<Register />} />
           </>
         ) : (
-          <></>
+          <>
+            <Route path='/cart' element={<Cart />} />
+          </>
         )}
       </Routes>
     </>

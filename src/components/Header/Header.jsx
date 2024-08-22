@@ -39,7 +39,7 @@ function Header() {
             <Link>
               <PersonIcon />
             </Link>
-            <Link>
+            <Link to='/cart'>
               <ShoppingCartIcon />
             </Link>
             <button className='LogOutButton' onClick={handleLogOut}>

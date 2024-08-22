@@ -4,7 +4,8 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { createContext, useContext, useState } from "react";
-import { auth, githubProvider, googleProvider } from "../firebase/firebase";
+import { auth, db, githubProvider, googleProvider } from "../firebase/firebase";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
 const AuthContext = createContext();
 
@@ -20,8 +21,19 @@ function AuthProvider({ children }) {
         email,
         password
       );
-      localStorage.setItem("userLoggedIn", JSON.stringify(userCredential.user));
-      setUser(userCredential.user);
+
+      const user = userCredential.user;
+      const cartId = null;
+      const userInfo = {
+        email: user.email,
+        cartId,
+        id: user.uid,
+      };
+      await setDoc(doc(db, "users", user.uid), { email: user.email, cartId });
+
+      localStorage.setItem("userLoggedIn", JSON.stringify(userInfo));
+
+      setUser(userInfo);
     } catch (error) {
       return error;
     }
@@ -34,8 +46,12 @@ function AuthProvider({ children }) {
         email,
         password
       );
-      localStorage.setItem("userLoggedIn", JSON.stringify(userCredential.user));
-      setUser(userCredential.user);
+      const user = userCredential.user;
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+      const userInfo = { id: user.uid, ...docSnap.data() };
+      localStorage.setItem("userLoggedIn", JSON.stringify(userInfo));
+      setUser(userInfo);
     } catch (error) {
       return error;
     }
@@ -43,8 +59,27 @@ function AuthProvider({ children }) {
   const googleAuth = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      localStorage.setItem("userLoggedIn", JSON.stringify(result.user));
-      setUser(result.user);
+      const docRef = doc(db, "users", result.user.uid);
+      const docSnap = await getDoc(docRef);
+      let userInfo;
+
+      if (docSnap.exists()) {
+        userInfo = { id: result.user.uid, ...docSnap.data() };
+      } else {
+        const cartId = null;
+        userInfo = {
+          email: result.user.email,
+          cartId,
+          id: result.user.uid,
+        };
+        await setDoc(doc(db, "users", result.user.uid), {
+          email: result.user.email,
+          cartId,
+        });
+      }
+      localStorage.setItem("userLoggedIn", JSON.stringify(userInfo));
+
+      setUser(userInfo);
     } catch (error) {
       return error;
     }
@@ -53,9 +88,27 @@ function AuthProvider({ children }) {
   const githubAuth = async () => {
     try {
       const result = await signInWithPopup(auth, githubProvider);
-      localStorage.setItem("userLoggedIn", JSON.stringify(result.user));
+      const docRef = doc(db, "users", result.user.uid);
+      const docSnap = await getDoc(docRef);
+      let userInfo;
 
-      setUser(result.user);
+      if (docSnap.exists()) {
+        userInfo = { id: result.user.uid, ...docSnap.data() };
+      } else {
+        const cartId = null;
+        userInfo = {
+          email: result.user.email,
+          cartId,
+          id: result.user.uid,
+        };
+        await setDoc(doc(db, "users", result.user.uid), {
+          email: result.user.email,
+          cartId,
+        });
+      }
+      localStorage.setItem("userLoggedIn", JSON.stringify(userInfo));
+
+      setUser(userInfo);
     } catch (error) {
       console.log(error);
       return error;
@@ -77,6 +130,17 @@ function AuthProvider({ children }) {
     return user;
   };
 
+  const updateLoggedInUser = async (newData) => {
+    try {
+      const userRef = doc(db, "users", user.id);
+      await updateDoc(userRef, newData);
+      setUser({ ...user, ...newData });
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -87,6 +151,7 @@ function AuthProvider({ children }) {
         googleAuth,
         githubAuth,
         getLoggedInUser,
+        updateLoggedInUser,
       }}>
       {children}
     </AuthContext.Provider>
