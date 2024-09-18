@@ -3,19 +3,40 @@ import "./ProductDetailPopUp.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { useAuthContext } from "../../../../../context/authContext";
 import { Link } from "react-router-dom";
+import { useCartContext } from "../../../../../context/cartContext";
+import Alert from "../../../../../components/Alert/Alert";
 
 function ProductDetailPopUp({ product, close }) {
   const [selectedColor, setSelectedColor] = useState(product.color[0].value);
   const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
+  const [counter, setCounter] = useState(1);
   const { user } = useAuthContext();
+  const { addToCart, cart } = useCartContext();
+  const [message, setMessage] = useState(null);
+
   const handleColorChange = (event) => {
     setSelectedColor(event.target.value);
   };
+
   const handleSizeChange = (event) => {
     setSelectedSize(event.target.value);
   };
+
+  const handleSendCart = async () => {
+    const selectedOptions = { selectedColor, selectedSize };
+    const completedProduct = { ...product, ...selectedOptions };
+
+    await addToCart(user.cartId, completedProduct, counter);
+    setMessage("Se añadio tu producto al carro");
+  };
+  const closeAlert = () => {
+    setMessage(null);
+  };
   return (
     <div className='ProductDetailPopUp'>
+      {message && (
+        <Alert level='success' message={message} onClose={closeAlert} />
+      )}
       <div className='ProductDetailPopUpContent'>
         <div className='ProductDetailPopUpButton'>
           <button onClick={close}>
@@ -77,13 +98,22 @@ function ProductDetailPopUp({ product, close }) {
                 </label>
               ))}
             </div>
-            {!user ? (
-              <Link to='/login' className='aaa'>
-                Add to Cart
-              </Link>
-            ) : (
-              <button>Add to Cart</button>
-            )}
+            <div className='ProductDetailAddToCart'>
+              {!user ? (
+                <Link to='/login' className='aaa'>
+                  Add to Cart
+                </Link>
+              ) : (
+                <button onClick={handleSendCart}>Add to Cart</button>
+              )}
+              <div className='ProductDetailAddToCartCounter'>
+                <button onClick={() => counter > 1 && setCounter(counter - 1)}>
+                  -
+                </button>
+                <span>{counter}</span>
+                <button onClick={() => setCounter(counter + 1)}>+</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

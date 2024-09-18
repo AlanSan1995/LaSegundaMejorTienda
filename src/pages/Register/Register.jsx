@@ -3,11 +3,12 @@ import BackgroundSignIn from "../../assets/img/BackgroundSignIn.jpg";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
 import { useAuthContext } from "../../context/authContext";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const { registerUser } = useAuthContext();
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -19,8 +20,9 @@ function Register() {
     const error = await registerUser(user.email, user.password);
     console.log(error);
     if (error) {
-      setError(error);
+      return setError(error);
     }
+    navigate("/");
   };
 
   return (

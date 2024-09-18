@@ -8,24 +8,39 @@ import Login from "./pages/Login/Login";
 import { useEffect } from "react";
 import Register from "./pages/Register/Register";
 import Cart from "./pages/private/Cart/Cart";
+import { useCartContext } from "./context/cartContext";
 
 function App() {
-  const { user, getLoggedInUser } = useAuthContext();
+  const { user, getLoggedInUser, updateLoggedInUser } = useAuthContext();
+  const { createCart, getCart } = useCartContext();
+
   const navigate = useNavigate();
+  const verifyCartExist = async (userData) => {
+    let cartId = null;
+    if (!userData.cartId) {
+      cartId = await createCart(userData.id);
+
+      await updateLoggedInUser({ cartId });
+    }
+
+    await getCart(cartId || userData.cartId);
+  };
   useEffect(() => {
     if (!user) {
-      getLoggedInUser();
-    } else {
-      navigate("/");
+      const userData = getLoggedInUser();
+      if (userData) {
+        verifyCartExist(userData);
+        navigate("/");
+      }
     }
-  }, [user]);
+  }, []);
 
   return (
-    <>
+    <div className='AppContainer'>
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/products' element={<Products />} />
+        <Route path='/products/:productId?' element={<Products />} />
         {!user ? (
           <>
             <Route path='/login' element={<Login />} />
@@ -37,7 +52,7 @@ function App() {
           </>
         )}
       </Routes>
-    </>
+    </div>
   );
 }
 

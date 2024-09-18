@@ -1,8 +1,17 @@
 import "./ProductCard.css";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import { wordToUpercase } from "../../../../../utils/wordToUpercase";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 function ProductCard({ product, selectProduct }) {
+  const { productId } = useParams();
+  useEffect(() => {
+    if (productId == product.id) {
+      selectProduct(product);
+    }
+  }, []);
+
   return (
     <div className='ProductCard'>
       <img src={product.image} alt='' />

@@ -5,6 +5,7 @@ import ProductDetailPopUp from "../ProductDetailPopUp/ProductDetailPopUp";
 
 function ProductsList({ products }) {
   const [popUpSelected, setPopUpSelected] = useState(null);
+
   const openPopUp = (product) => {
     setPopUpSelected(product);
   };

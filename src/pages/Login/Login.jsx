@@ -7,10 +7,14 @@ import Alert from "../../components/Alert/Alert";
 import { catchError } from "../../utils/catchError";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import googleicon from "../../assets/icons/google.svg";
+import { useNavigate } from "react-router-dom";
+
+// modificar la navegacion a home cuando el usuario se logea 0 registra
 
 function Login() {
   const { loginUser, googleAuth, githubAuth } = useAuthContext();
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,22 +27,25 @@ function Login() {
     const error = await loginUser(user.email, user.password);
 
     if (error) {
-      setError(error);
+      return setError(error);
     }
+    navigate("/");
   };
   const handleGoogleButton = async () => {
     const error = await googleAuth();
 
     if (error) {
-      setError(error);
+      return setError(error);
     }
+    navigate("/");
   };
   const handleGithubButton = async () => {
     const error = await githubAuth();
 
     if (error) {
-      setError(error);
+      return setError(error);
     }
+    navigate("/");
   };
 
   const closeAlert = () => {
